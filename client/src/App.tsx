@@ -19,6 +19,15 @@ function App() {
         </div>
       ))}
 
+      <button onClick={() => {
+        setProducts(prevProducts => [
+            ...prevProducts, {id: prevProducts.length+1, name: `Product ${prevProducts.length+1}`, price: Math.floor(Math.random()*100)+1}
+          ]);
+        }}>
+
+        Add Product
+      </button>
+      
     </div>
       
   )
