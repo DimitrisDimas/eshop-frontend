@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import ProductList from "./ProductList";
 import type { Product } from "../../app/models/product";
 
 export default function Catalog(){
+    
     const [products, setProducts] = useState<Product[]>([]) ;
 
     /*
@@ -34,19 +36,10 @@ export default function Catalog(){
         .then(data => setProducts(data.content));
 
     }, []);
-
+    
     return (
-    <div>      
-      {products.map(product => (
-        <div key={product.id}>
-          <p>Name: {product.name}</p>
-          <p>Description: {product.description}</p>
-          <p>Price: {product.price}€</p>
-          <p>Brand: {product.productBrand}</p>
-          <p>Type: {product.productType}</p>
-        </div>
-      ))}
-    </div>
-      
-  )
+        <>
+            <ProductList products={products} />
+        </>  
+    )
 }
