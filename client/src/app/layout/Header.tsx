@@ -13,10 +13,16 @@ interface Props {
 export default function Header({darkMode, handleThemeChange}: Props){
     return (
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1}}>
-            <Toolbar>
-                <Typography variant="h6">
-                    Koutsianikoulis Sport
-                </Typography>
+            <Toolbar sx={({
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems:"center"
+            })}>
+                
+                <Box display='flex' alignItems='center'>
+                    <Typography variant="h6">
+                        Koutsianikoulis Sport
+                    </Typography>
 
                 <Switch checked={darkMode} onChange={handleThemeChange}/>
 
