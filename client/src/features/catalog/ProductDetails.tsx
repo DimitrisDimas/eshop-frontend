@@ -2,8 +2,8 @@ import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, T
 import { useEffect, useState } from "react";
 import type { Product } from "../../app/models/product";
 import { useParams } from "react-router";
-import axios from "axios";
 import { extractImageName, formatPrice } from "../../utils/Formatters";
+import agent from "../../app/api/agent";
 
 export default function ProductDetails(){
     
@@ -14,9 +14,19 @@ export default function ProductDetails(){
 
     useEffect( () => {
 
+        /*
         axios.get(`http://localhost:8081/api/products/${id}`)
             .then(response => setProduct(response.data))
             .catch(error => console.error(error))
+            .finally(() => setLoading(false));
+
+        */
+
+        if (!id) return;
+
+        agent.Store.details(parseInt(id))
+            .then(response => setProduct(response))
+            .catch(error => console.log(error))
             .finally(() => setLoading(false));
 
     }, [id])
