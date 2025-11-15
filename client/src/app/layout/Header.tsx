@@ -1,12 +1,20 @@
-import { AppBar, Toolbar, Typography} from "@mui/material";
+import { AppBar, Switch, Toolbar, Typography} from "@mui/material";
 
-export default function Header(){
+interface Props {
+    darkMode: boolean;
+    handleThemeChange: () => void ;
+}
+
+export default function Header({darkMode, handleThemeChange}: Props){
     return (
-        <AppBar position="static" sc={{mb:4}}>
+        <AppBar position="static">
             <Toolbar>
                 <Typography variant="h6">
-                    Koutsianikouslis Sport
+                    Koutsianikoulis Sport
                 </Typography>
+
+                <Switch checked={darkMode} onChange={handleThemeChange}/>
+
             </Toolbar>
         </AppBar>
     )
