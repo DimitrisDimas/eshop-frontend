@@ -24,7 +24,7 @@ function App() {
           <CssBaseline/>
           <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
           
-          <Container>
+          <Container sx={{ paddingTop: "64px" }}>
             <Catalog/>
           </Container>
         </ThemeProvider>
