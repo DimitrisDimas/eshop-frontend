@@ -1,4 +1,9 @@
 import { AppBar, Switch, Toolbar, Typography} from "@mui/material";
+const navLinks = [
+    {title: 'Home', path:'/'},
+    {title: 'Store', path:'/store'},
+    {title: 'Contact', path:'/contact'}
+]
 
 interface Props {
     darkMode: boolean;
