@@ -1,9 +1,28 @@
-import { AppBar, Switch, Toolbar, Typography} from "@mui/material";
+import { AppBar, Box, List, ListItem, Switch, Toolbar, Typography} from "@mui/material";
+import { NavLink } from "react-router";
+
 const navLinks = [
     {title: 'Home', path:'/'},
     {title: 'Store', path:'/store'},
     {title: 'Contact', path:'/contact'}
 ]
+
+const accountLinks = [
+    {title: 'Login', path:'/login'},
+    {title: 'Register', path:'/register'}
+]
+
+const navStyles = {
+    color: "inherit",
+    typography:"h6",
+    textDecoration:"none",
+    "&:hover":{
+        color:"secondary.main"
+    },
+    "&:active":{
+        color:"text.secondary"
+    }
+};
 
 interface Props {
     darkMode: boolean;
@@ -24,7 +43,16 @@ export default function Header({darkMode, handleThemeChange}: Props){
                         Koutsianikoulis Sport
                     </Typography>
 
-                <Switch checked={darkMode} onChange={handleThemeChange}/>
+                    <Switch checked={darkMode} onChange={handleThemeChange}/>
+                </Box>
+                
+                <List sx={{display:'flex'}}>
+                    {navLinks.map(({title, path})=>(
+                        <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
+                            {title}
+                        </ListItem>
+                    ))}
+                </List>
 
             </Toolbar>
         </AppBar>
