@@ -4,6 +4,7 @@ import type { Product } from "../../app/models/product";
 import { useParams } from "react-router";
 import { extractImageName, formatPrice } from "../../utils/Formatters";
 import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFoundError";
 
 export default function ProductDetails(){
     
@@ -32,7 +33,7 @@ export default function ProductDetails(){
     }, [id])
 
     if (loading) return <h3>Loading Product...</h3>
-    if (!product) return <h3>Product not found</h3>
+    if (!product) return <NotFound/>
 
     return (
         <Grid container spacing={6}>
