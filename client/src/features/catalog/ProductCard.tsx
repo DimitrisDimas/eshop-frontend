@@ -1,32 +1,14 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import type { Product } from "../../app/models/product";
 import { Link } from "react-router";
+import { extractImageName, formatPrice } from "../../utils/Formatters";
 
 interface Props{
     product: Product;
 }
 
 export default function ProductCard({product}: Props){
-
-    const extractImageName = (item: Product): string | null =>{
-        if(item && item.pictureUrl){
-            const parts = item.pictureUrl.split('/');
-            if(parts.length>0){
-                return parts[parts.length-1];
-            }
-        }
-        
-        return null;
-    }
     
-    const formatPrice = (price: number): string =>{
-        return new Intl.NumberFormat('el-GR', {
-            style:'currency',
-            currency: 'EUR',
-            minimumFractionDigits: 2
-        }).format(price);
-    }
-
     return (
         <Card>
             <CardHeader avatar={
