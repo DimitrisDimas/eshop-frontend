@@ -1,8 +1,33 @@
-import axios, { type AxiosResponse } from "axios";
+import axios, { AxiosError, type AxiosResponse } from "axios";
+import { router } from "../router/Routes";
 
 axios.defaults.baseURL ='http://localhost:8081/api/';
 
+const idle = () => new Promise(resolve => setTimeout(resolve, 100));
 const responseBody = (response: AxiosResponse) => response.data;
+
+axios.interceptors.response.use(async response=>{
+    await idle();
+    return response
+}, (error: AxiosError)=>{
+    
+    const {status} = error.response as AxiosResponse; 
+    
+    switch(status){
+        case 404:
+            console.log("Resource not found");
+            router.navigate('/not-found');
+            break;
+        case 500:
+            console.log("Internal server error occurred");
+            router.navigate('/server-error');
+            break;
+        default:
+            break;
+    }
+    
+    return Promise.reject(error.message);
+})
 
 const requests = {
     get: (url: string) => axios.get(url).then(responseBody),
