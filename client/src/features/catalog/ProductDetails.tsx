@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { extractImageName, formatPrice } from "../../utils/Formatters";
 import agent from "../../app/api/agent";
 import NotFound from "../../app/errors/NotFoundError";
+import Spinner from "../../app/layout/Spinner";
 
 export default function ProductDetails(){
     
@@ -32,7 +33,7 @@ export default function ProductDetails(){
 
     }, [id])
 
-    if (loading) return <h3>Loading Product...</h3>
+    if(loading) return <Spinner message='Loading Product...'/>
     if (!product) return <NotFound/>
 
     return (

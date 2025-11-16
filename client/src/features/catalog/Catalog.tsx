@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import type { Product } from "../../app/models/product";
 import agent from "../../app/api/agent";
+import Spinner from "../../app/layout/Spinner";
 
 export default function Catalog(){
     
@@ -17,7 +18,8 @@ export default function Catalog(){
     }, []);
     
     if(!products) return <h3>Unable to load Products</h3>
-    
+    if(loading) return <Spinner message='Loading Products...'/>
+
     /*
     useEffect(() => {
         fetch('http://localhost:8081/api/products')
