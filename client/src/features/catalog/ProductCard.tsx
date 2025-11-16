@@ -1,7 +1,12 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Typography } from "@mui/material";
 import type { Product } from "../../app/models/product";
 import { Link } from "react-router";
 import { extractImageName, formatPrice } from "../../utils/Formatters";
+import { useState } from "react";
+import { useAppDispatch } from "../../app/store/configureStore";
+import agent from "../../app/api/agent";
+import { setBasket } from "../basket/basketSlice";
+import { LoadingButton } from "@mui/lab";
 
 interface Props{
     product: Product;
@@ -9,6 +14,21 @@ interface Props{
 
 export default function ProductCard({product}: Props){
     
+    const [loading, setLoading] = useState(false);
+    const dispatch = useAppDispatch();
+
+    function addItem(){
+        setLoading(true);
+        
+        agent.Basket.addItem(product, dispatch)
+            .then(response=>{
+                console.log('New Basket:', response.basket);
+                dispatch(setBasket(response.basket));
+            })
+            .catch(error=>console.log(error))
+            .finally(()=>setLoading(false));
+    }
+
     return (
         <Card>
             <CardHeader avatar={
@@ -37,7 +57,15 @@ export default function ProductCard({product}: Props){
             </CardContent>
 
             <CardActions>
-                <Button size="small">Add to cart</Button>
+                <LoadingButton
+                    loading={loading}
+                    onClick={addItem}
+                    size="small"
+                    startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
+                    >
+                    Add to cart
+                </LoadingButton>
+
                 <Button component={Link} to={`/store/${product.id}`} size="small">View</Button>
             </CardActions>
         </Card>
