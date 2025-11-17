@@ -19,28 +19,28 @@ function App() {
   const paletteType = darkMode ? 'dark' : 'light';
 
   useEffect(()=>{
-    const basket = getBasketFromLocalStorage();
-    dispatch(fetchCurrentUser());
-    
-    if(basket){
-      agent.Basket.get()
-        .then(basket=>dispatch(setBasket(basket)))
-        .catch(error=>console.log(error))
-        .finally(()=>setLoading(false))
-    }else{
-      //setLoading(false);
-      setTimeout(() => setLoading(false), 0)
-    }
+      const basket = getBasketFromLocalStorage();
+      dispatch(fetchCurrentUser());
+      
+      if(basket){
+        agent.Basket.get()
+          .then(basket=>dispatch(setBasket(basket)))
+          .catch(error=>console.log(error))
+          .finally(()=>setLoading(false))
+      }else{
+        //setLoading(false);
+        setTimeout(() => setLoading(false), 0)
+      }
   })
 
   const theme = createTheme({
-    palette:{
-      mode: paletteType,
-    }
+      palette:{
+        mode: paletteType,
+      }
   })
 
   function handleThemeChange(){
-    setDarkMode(!darkMode) ;
+      setDarkMode(!darkMode) ;
   }
 
   if(loading)return <Spinner message="Getting Basket..."/>
