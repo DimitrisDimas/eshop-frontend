@@ -44,7 +44,6 @@ export default function Catalog(){
             .then(([productsRes, brandsResp, typesResp])=>{
                 setProducts(productsRes.content);
                 setTotaItems(productsRes.totalElements);
-                //setBrands(brandsResp);
                 setBrands(brandsResp);
                 setTypes(typesResp);
             })
