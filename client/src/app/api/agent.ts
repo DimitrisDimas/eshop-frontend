@@ -6,7 +6,6 @@ import type { Product } from "../models/product";
 import type { Dispatch } from "@reduxjs/toolkit";
 import type { Basket } from "../models/basket";
 
-
 axios.defaults.baseURL ='http://localhost:8081/api/';
 
 const idle = () => new Promise(resolve => setTimeout(resolve, 100));
@@ -135,10 +134,17 @@ const Account = {
     login: (values: any) =>requests.post('auth/login', values)
 }
 
+const Orders ={
+  list:() => requests.get('orders'),
+  fetch:(id:number) => requests.get(`orders/${id}`),
+  create:(values:any) => requests.post('orders', values)
+}
+
 const agent = {
     Store,
     Account,
     Basket,
+    Orders,
 }
 
 export default agent;
