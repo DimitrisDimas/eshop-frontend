@@ -45,6 +45,7 @@ export default function Catalog(){
                 setProducts(productsRes.content);
                 setTotaItems(productsRes.totalElements);
                 //setBrands(brandsResp);
+                setBrands(brandsResp);
                 setTypes(typesResp);
             })
             .catch((error)=>console.error(error))
