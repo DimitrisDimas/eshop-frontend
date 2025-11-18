@@ -11,6 +11,7 @@ import SignInPage from "../../features/account/SignInPage";
 import RegisterPage from "../../features/account/RegisterPage";
 import RequireAuth from "./RequireAuth";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
+import Order from "../../features/orders/Order";
 
 export const router = createBrowserRouter([
     {
