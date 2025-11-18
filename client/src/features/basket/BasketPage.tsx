@@ -1,10 +1,12 @@
 import { Remove, Add } from "@mui/icons-material";
-import { Typography, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton} from "@mui/material";
+import { Typography, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Box, Button} from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../app/store/configureStore";
 import { extractImageName, formatPrice } from "../../utils/Formatters";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import agent from "../../app/api/agent";
+import BasketSummary from "./BasketSummary";
+import { Link } from "react-router";
 
 export default function BasketPage(){
     
@@ -73,6 +75,19 @@ export default function BasketPage(){
 
                 </Table>
             </TableContainer>
+            
+            <Box mt={2} p={2} bgcolor="background.paper" borderRadius={4}>
+                <BasketSummary/>
+                <Button
+                    component={Link}
+                    to='/checkout'
+                    variant='contained'
+                    size='large'
+                    fullWidth
+                >
+                    Checkout
+                </Button>
+        </Box>
         </>
     );
 }
