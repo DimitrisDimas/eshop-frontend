@@ -114,6 +114,32 @@ export default function ProductDetails(){
                     </Table>
                 </TableContainer>
 
+                <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                        <TextField
+                            onChange={inputChange} 
+                            variant='outlined'
+                            type='number'
+                            label='Quantity in Cart'
+                            fullWidth
+                            value={quantity}
+                        />
+                    </Grid>
+                    
+                    <Grid item xs={6}>
+                        <LoadingButton
+                            sx={{ height: '55px' }}
+                            color='primary'
+                            size='large'
+                            variant='contained'
+                            fullWidth
+                            loading={submitting}
+                            onClick={updateQuantity}
+                        >
+                            {item ? 'Update Quantity' : 'Add to Cart'}
+                        </LoadingButton>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     )
