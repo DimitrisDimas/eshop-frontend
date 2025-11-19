@@ -96,7 +96,7 @@ export const accountSlice = createSlice({
         }
     },
     extraReducers:(builder=>{
-        builder.addMatcher(isAnyOf(signInUser.fulfilled, fetchCurrentUser.fulfilled), (state, action)=>{
+        builder.addMatcher(isAnyOf(signInUser.fulfilled), (state, action)=>{
             state.user = action.payload;
             state.error = null;
             toast.success('Sign in successful');

@@ -99,14 +99,6 @@ export default function SignInPage(){
 
                     <Grid container>
                         <Grid>
-                            <Link to="#">
-                                <Typography variant="body2">
-                                    Forgot password?
-                                </Typography>
-                            </Link>
-                        </Grid>
-
-                        <Grid>
                             <Link to="/register">
                                 <Typography variant="body2">
                                     {"Don't have an account? Sign Up"}
