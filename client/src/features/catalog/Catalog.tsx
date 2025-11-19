@@ -14,6 +14,7 @@ const sortOptions =[
 ]
 
 export default function Catalog(){
+    
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [brands, setBrands] = useState<Brand[]>([]);
@@ -99,13 +100,13 @@ export default function Catalog(){
     //Trigger loadProducts wheneever selectedBrandId or selectedTypeId changes
     useEffect(()=>{
         loadProducts(selectedSort);
-    }, [selectedBrandId, selectedTypeId]);
+    }, [selectedBrandId, selectedTypeId, selectedSort]);
   
     const handleSortChange = (event: any) =>{
         const selectedSort = event.target.value;
         
         setSelectedSort(selectedSort); 
-        loadProducts(selectedSort);
+        //loadProducts(selectedSort);
     };
 
     const handleBrandChange = (event: any) =>{
@@ -117,7 +118,7 @@ export default function Catalog(){
         
         if(brand){
             setSelectedBrandId(brand.id); 
-            loadProducts(selectedSort);
+            //loadProducts(selectedSort);
         }    
     };
 
@@ -129,7 +130,7 @@ export default function Catalog(){
         
         if(type){
             setSelectedTypeId(type.id); 
-            loadProducts(selectedSort);
+            //loadProducts(selectedSort);
         }    
     };
 
@@ -169,7 +170,7 @@ export default function Catalog(){
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 // Trigger search action
-                                loadProducts(selectedSort, searchTerm); // Pass the search term to loadProducts
+                                loadProducts(selectedSort, searchTerm);
                             }
                         }}
                     />
