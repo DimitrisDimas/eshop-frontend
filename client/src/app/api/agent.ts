@@ -145,7 +145,8 @@ const Basket = {
 }
 
 const Account = {
-    login: (values: any) =>requests.post('auth/login', values)
+    login: (values: any) =>requests.post('auth/login', values),
+    register: (values: any) => requests.post('auth/register', values)
 }
 
 const Orders ={
