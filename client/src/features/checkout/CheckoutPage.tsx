@@ -10,6 +10,7 @@ import { setBasket } from "../basket/basketSlice";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import { ValidationRules } from "./validationRules";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const steps = ["Shipping address", "Review your order", "Payment details"];
 
