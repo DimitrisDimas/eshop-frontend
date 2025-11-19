@@ -2,9 +2,14 @@ import { Container, CssBaseline, Box, Avatar, Typography, TextField, Button, Gri
 import { Link } from "react-router";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useAppDispatch } from "../../app/store/configureStore";
+import { signUpUser } from "./accountSlice";
+import { toast } from "react-toastify";
 
 export default function RegisterPage(){
-    
+
+    const dispatch = useAppDispatch();
+
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -15,10 +20,19 @@ export default function RegisterPage(){
         const {name, value} = e.target;
         setFormData({...formData, [name]: value});
     }
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(formData);
+        
+        try{
+            //dispatching the sign in action
+            await dispatch(signUpUser(formData));
+            
+        }catch(error){
+            console.log('Error signing in:', error);
+            toast.error('Sign in Failed. Please try again');
+        }
     }
 
     return (

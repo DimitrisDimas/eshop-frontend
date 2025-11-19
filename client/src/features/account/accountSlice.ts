@@ -101,10 +101,23 @@ export const accountSlice = createSlice({
             state.error = null;
             toast.success('Sign in successful');
         });
+        
         builder.addMatcher(isAnyOf(signInUser.rejected, fetchCurrentUser.rejected, logoutUser.fulfilled), (state, action)=>{
             const payload = action.payload as string | null;
             state.error = payload;
             toast.success('Sign in failed. Please try again');
+        });
+
+        builder.addMatcher(isAnyOf(signUpUser.fulfilled), (state, action)=>{
+            state.user = action.payload;
+            state.error = null;
+            toast.success('Register successful. Please Log in');
+        });
+
+        builder.addMatcher(isAnyOf(signUpUser.rejected), (state, action)=>{
+            const payload = action.payload as string | null;
+            state.error = payload;
+            toast.success('Register failed. Please try again');
         });
     })
 })
