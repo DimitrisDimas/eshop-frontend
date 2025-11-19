@@ -11,7 +11,7 @@ export default function AddressForm(){
 
             <form>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid size={6} sm={6}>
                         <TextField
                             required
                             id="firstName"
@@ -25,7 +25,7 @@ export default function AddressForm(){
                         />
                     </Grid>
                 
-                    <Grid item xs={12} sm={6}>
+                    <Grid size={6} sm={6}>
                         <TextField
                             required
                             id="lastName"
@@ -39,7 +39,7 @@ export default function AddressForm(){
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                         <TextField
                             required
                             id="address1"
@@ -53,7 +53,7 @@ export default function AddressForm(){
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                         <TextField
                             id="address2"
                             {...register("address2")}
@@ -66,7 +66,7 @@ export default function AddressForm(){
                         />
                     </Grid>
                     
-                    <Grid item xs={12} sm={6}>
+                    <Grid size={6} sm={6}>
                         <TextField
                             required
                             id="city"
@@ -80,7 +80,7 @@ export default function AddressForm(){
                         />
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
+                    <Grid size={6} sm={6}>
                         <TextField
                             id="state"
                             {...register("state")}
@@ -92,7 +92,7 @@ export default function AddressForm(){
                         />
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
+                    <Grid size={6} sm={6}>
                         <TextField
                             required
                             id="zip"
@@ -106,7 +106,7 @@ export default function AddressForm(){
                         />
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
+                    <Grid size={6} sm={6}>
                         <TextField
                             required
                             id="country"
