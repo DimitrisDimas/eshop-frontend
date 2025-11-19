@@ -32,6 +32,24 @@ export const signInUser = createAsyncThunk<User, FieldValues>(
     }
 )
 
+export const signUpUser = createAsyncThunk<User, FieldValues>(
+    'auth/register',
+    async (data, thunkAPI) => {
+        try{
+            const user = await agent.Account.register(data);
+            localStorage.setItem('user', JSON.stringify(user));
+            console.log("created"+user);
+            return user;
+        }
+        catch (error: unknown) {
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue({ error: error.message });
+            }
+            return thunkAPI.rejectWithValue({ error: 'An unknown error occurred' });
+        }
+    }
+)
+
 export const fetchCurrentUser = createAsyncThunk<User | null>(
     'auth/fetchCurrentUser',
     async() =>{

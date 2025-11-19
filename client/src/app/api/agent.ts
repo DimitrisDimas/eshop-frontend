@@ -5,11 +5,25 @@ import basketService from "./basketService";
 import type { Product } from "../models/product";
 import type { Dispatch } from "@reduxjs/toolkit";
 import type { Basket } from "../models/basket";
+import { store } from "../store/configureStore";
 
 axios.defaults.baseURL ='http://localhost:8081/api/';
 
 const idle = () => new Promise(resolve => setTimeout(resolve, 100));
 const responseBody = (response: AxiosResponse) => response.data;
+
+axios.interceptors.request.use(config => {
+    const token = store.getState().account.user?.token;
+    
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+}, error => {
+    return Promise.reject(error);
+});
+
 
 axios.interceptors.response.use(async response=>{
     await idle();
@@ -135,9 +149,9 @@ const Account = {
 }
 
 const Orders ={
-  list:() => requests.get('orders'),
-  fetch:(id:number) => requests.get(`orders/${id}`),
-  create:(values:any) => requests.post('orders', values)
+    list:() => requests.get('orders'),
+    fetch:(id:number) => requests.get(`orders/${id}`),
+    create:(values:any) => requests.post('orders', values)
 }
 
 const agent = {
