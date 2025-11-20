@@ -14,6 +14,7 @@ const sortOptions =[
 ]
 
 export default function Catalog(){
+    
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [brands, setBrands] = useState<Brand[]>([]);
@@ -35,23 +36,31 @@ export default function Catalog(){
     //   .finally(()=>setLoading(false));
     // }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         Promise.all([
-                agent.Store.list(currentPage, pageSize),
-                agent.Store.brands(),
-                agent.Store.types()
-            ])
-            .then(([productsRes, brandsResp, typesResp])=>{
+            agent.Store.brands(),
+            agent.Store.types()
+        ])
+        .then(([brandsResp, typesResp]) => {
+            setBrands(brandsResp);
+            setTypes(typesResp);
+        })
+        .catch((error) => console.error(error));
+    }, []);
+
+    useEffect(() => {
+        //setLoading(true);
+
+        agent.Store.list(currentPage, pageSize)
+            .then((productsRes) => {
                 setProducts(productsRes.content);
                 setTotaItems(productsRes.totalElements);
-                //setBrands(brandsResp);
-                setTypes(typesResp);
             })
-            .catch((error)=>console.error(error))
-            .finally(()=>setLoading(false));
+            .catch(console.error)
+            .finally(() => setLoading(false));
+    }, [currentPage]);
 
-    }, [currentPage, pageSize]);
-    
+
     const loadProducts = (selectedSort: string, searchKeyword='') =>{
         setLoading(true);
 
@@ -99,13 +108,13 @@ export default function Catalog(){
     //Trigger loadProducts wheneever selectedBrandId or selectedTypeId changes
     useEffect(()=>{
         loadProducts(selectedSort);
-    }, [selectedBrandId, selectedTypeId]);
+    }, [selectedBrandId, selectedTypeId, selectedSort]);
   
     const handleSortChange = (event: any) =>{
         const selectedSort = event.target.value;
         
         setSelectedSort(selectedSort); 
-        loadProducts(selectedSort);
+        //loadProducts(selectedSort);
     };
 
     const handleBrandChange = (event: any) =>{
@@ -117,7 +126,7 @@ export default function Catalog(){
         
         if(brand){
             setSelectedBrandId(brand.id); 
-            loadProducts(selectedSort);
+            //loadProducts(selectedSort);
         }    
     };
 
@@ -129,7 +138,7 @@ export default function Catalog(){
         
         if(type){
             setSelectedTypeId(type.id); 
-            loadProducts(selectedSort);
+            //loadProducts(selectedSort);
         }    
     };
 
@@ -169,7 +178,7 @@ export default function Catalog(){
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 // Trigger search action
-                                loadProducts(selectedSort, searchTerm); // Pass the search term to loadProducts
+                                loadProducts(selectedSort, searchTerm);
                             }
                         }}
                     />
